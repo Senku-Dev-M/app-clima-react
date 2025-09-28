@@ -1,0 +1,133 @@
+.weather-display-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  width: 100%;
+  max-width: 40rem;
+}
+
+.light-theme .weather-display-card {
+  background-color: var(--bg-card-light);
+  box-shadow: var(--shadow-light);
+}
+
+.dark-theme .weather-display-card {
+  background-color: var(--bg-card-dark);
+  box-shadow: var(--shadow-dark);
+}
+
+.city-name {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.date {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.light-theme .date {
+  color: #6b7280;
+}
+
+.dark-theme .date {
+  color: #9ca3af;
+}
+
+.main-weather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.weather-icon {
+  width: 6rem;
+  height: 6rem;
+}
+
+.temperature {
+  font-size: 3.75rem;
+  font-weight: 300;
+  margin-left: 1rem;
+}
+
+.description {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.detail-item {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.light-theme .detail-item {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-theme .detail-item {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.light-theme .detail-label {
+  color: #6b7280;
+}
+
+.dark-theme .detail-label {
+  color: #9ca3af;
+}
+
+.detail-value {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.message {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  color: #6b7280;
+}
+
+.light-theme .message {
+  color: #6b7280;
+}
+
+.dark-theme .message {
+  color: #9ca3af;
+}
+
+.message.error {
+  color: #ef4444;
+}
+
+@media (max-width: 640px) {
+  .app-title {
+    font-size: 2rem;
+  }
+}
