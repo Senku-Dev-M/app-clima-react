@@ -1,22 +1,13 @@
 .home-page {
-  gap: clamp(1.5rem, 2vw, 2rem);
+  gap: clamp(1.5rem, 2.25vw, 2.25rem);
 }
 
-.home-grid {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  align-items: stretch;
-}
-
-.home-grid > * {
-  min-width: 0;
+.home-search {
+  display: grid;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  align-items: center;
 }
 
 .home-search .search-bar {
   margin: 0;
-}
-
-@media (max-width: 640px) {
-  .home-grid {
-    grid-template-columns: 1fr;
-  }
 }

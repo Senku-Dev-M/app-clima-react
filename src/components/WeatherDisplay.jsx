@@ -36,47 +36,81 @@ const WeatherDisplay = ({ data, loading, error, showDetailsLink = false }) => {
     day: 'numeric',
   });
 
+  const metrics = [
+    {
+      id: 'humidity',
+      label: 'Humedad',
+      value: `${data.main.humidity}%`,
+      helper: 'Nivel de humedad',
+    },
+    {
+      id: 'wind',
+      label: 'Viento',
+      value: `${Math.round(data.wind.speed * 3.6)} km/h`,
+      helper: 'Velocidad del viento',
+    },
+    {
+      id: 'pressure',
+      label: 'Presión',
+      value: `${data.main.pressure} hPa`,
+      helper: 'Presión atmosférica',
+    },
+    {
+      id: 'range',
+      label: 'Mín / Máx',
+      value: `${Math.round(data.main.temp_min)}°C / ${Math.round(data.main.temp_max)}°C`,
+      helper: 'Variación diaria',
+    },
+  ];
+
+  if (typeof data.visibility === 'number') {
+    const visibilityInKm = Math.round((data.visibility / 1000) * 10) / 10;
+    metrics.splice(2, 0, {
+      id: 'visibility',
+      label: 'Visibilidad',
+      value: `${visibilityInKm.toFixed(visibilityInKm % 1 === 0 ? 0 : 1)} km`,
+      helper: 'Al nivel del suelo',
+    });
+  }
+
   return (
-    <article className="weather-display-card">
-      <div className="weather-summary">
-        <div className="weather-summary__header">
+    <section className="weather-dashboard" aria-label="Resumen del clima actual">
+      <article className="page-panel weather-overview">
+        <header className="weather-overview__header">
           <h2 className="city-name">{data.name}</h2>
           <p className="date">{formattedDate}</p>
-        </div>
-        <div className="weather-summary__main">
+        </header>
+        <div className="weather-overview__body">
           <img src={iconUrl} alt={data.weather[0].description} className="weather-icon" />
-          <div className="weather-summary__temperature">
+          <div className="temperature-stack">
             <p className="temperature">{Math.round(data.main.temp)}°C</p>
+            <div className="temperature-meta">
+              <span className="temperature-meta__label">Sensación</span>
+              <span className="temperature-meta__value">{Math.round(data.main.feels_like)}°C</span>
+            </div>
             <p className="description">{data.weather[0].description}</p>
           </div>
         </div>
-      </div>
-      <div className="weather-details">
-        <div className="detail-item">
-          <p className="detail-label">Sensación térmica</p>
-          <p className="detail-value">{Math.round(data.main.feels_like)}°C</p>
+      </article>
+      <aside className="weather-side" aria-label="Indicadores complementarios">
+        <div className="weather-metrics">
+          {metrics.map((metric) => (
+            <div key={metric.id} className="page-panel metric-card">
+              <p className="metric-label">{metric.label}</p>
+              <p className="metric-value">{metric.value}</p>
+              {metric.helper && <p className="metric-helper">{metric.helper}</p>}
+            </div>
+          ))}
         </div>
-        <div className="detail-item">
-          <p className="detail-label">Humedad</p>
-          <p className="detail-value">{data.main.humidity}%</p>
-        </div>
-        <div className="detail-item">
-          <p className="detail-label">Viento</p>
-          <p className="detail-value">{Math.round(data.wind.speed * 3.6)} km/h</p>
-        </div>
-        <div className="detail-item">
-          <p className="detail-label">Presión</p>
-          <p className="detail-value">{data.main.pressure} hPa</p>
-        </div>
-      </div>
-      {showDetailsLink && (
-        <div className="details-link-wrapper">
-          <Link className="details-link" to={forecastLink}>
-            Ver pronóstico detallado
-          </Link>
-        </div>
-      )}
-    </article>
+        {showDetailsLink && (
+          <div className="details-link-wrapper">
+            <Link className="details-link" to={forecastLink}>
+              Ver pronóstico detallado
+            </Link>
+          </div>
+        )}
+      </aside>
+    </section>
   );
 };
 

@@ -24,12 +24,10 @@ const Home = () => {
         <h1 className="page-title">Panel de Control del Clima</h1>
         <p className="page-subtitle">Busca el clima actual de cualquier ciudad y consulta detalles adicionales.</p>
       </header>
-      <div className="page-grid home-grid">
-        <section className="page-panel home-search" aria-label="Buscador de ciudades">
-          <SearchBar onSearch={handleSearch} />
-        </section>
-        <WeatherDisplay data={data} loading={isLoading} error={error} showDetailsLink />
-      </div>
+      <section className="page-panel home-search" aria-label="Buscador de ciudades">
+        <SearchBar onSearch={handleSearch} />
+      </section>
+      <WeatherDisplay data={data} loading={isLoading} error={error} showDetailsLink />
     </div>
   );
 };

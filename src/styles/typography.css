@@ -6,9 +6,9 @@
 
 .page-title,
 .app-title {
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.3rem, 4.8vw, 3.1rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
   margin: 0;
 }
 
@@ -16,6 +16,7 @@
   font-size: clamp(1.05rem, 2vw, 1.2rem);
   margin: 0;
   max-width: 60ch;
+  line-height: 1.6;
 }
 
 .light-theme .page-subtitle {

@@ -1,12 +1,15 @@
 :root {
   --font-family: 'Inter', sans-serif;
-  --bg-color-light: linear-gradient(135deg, #f8fafc, #e8ecf4);
+  --bg-color-light: linear-gradient(145deg, #f6f7fb 0%, #f1f5fb 45%, #ffe8d9 100%);
   --text-color-light: #1f2937;
-  --text-muted-light: #4b5563;
+  --text-muted-light: #5b6475;
   --bg-card-light: rgba(255, 255, 255, 0.78);
-  --shadow-light: 0 18px 40px rgba(15, 23, 42, 0.12);
-  --border-color-light: rgba(203, 213, 225, 0.6);
-  --hover-color-light: rgba(15, 23, 42, 0.08);
+  --shadow-light: 0 22px 48px rgba(15, 23, 42, 0.16);
+  --border-color-light: rgba(212, 220, 236, 0.6);
+  --hover-color-light: rgba(15, 23, 42, 0.07);
+  --accent-color: #f97316;
+  --accent-color-strong: #ea580c;
+  --accent-glow: rgba(249, 115, 22, 0.22);
 
   --bg-color-dark: #0f172a;
   --text-color-dark: #f9fafb;
@@ -16,8 +19,8 @@
   --border-color-dark: rgba(148, 163, 184, 0.28);
   --hover-color-dark: rgba(148, 163, 184, 0.15);
 
-  --primary-button-bg: #2563eb;
-  --primary-button-hover-bg: #1e40af;
+  --primary-button-bg: var(--accent-color);
+  --primary-button-hover-bg: var(--accent-color-strong);
 }
 
 .light-theme {
