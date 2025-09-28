@@ -1,60 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import SearchBar from './components/SearchBar';
-import WeatherDisplay from './components/WeatherDisplay';
-import ThemeSwitcher from './components/ThemeSwitcher';
-import './index.css';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import AppLayout from './layouts/AppLayout.jsx';
+import Home from './pages/Home.jsx';
+import ForecastDetails from './pages/ForecastDetails.jsx';
 
-function App() {
-  const [city, setCity] = useState('');
-  const [weatherData, setWeatherData] = useState(null);
-  const [theme, setTheme] = useState('light');
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  
-  const API_KEY = import.meta.env.VITE_API_KEY;
+const About = lazy(() => import('./pages/About.jsx'));
 
-  useEffect(() => {
-    if (!city) {
-      return;
-    }
-
-    const fetchWeather = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`
-        );
-        if (!response.ok) {
-          throw new Error('No se encontraron datos del clima para esta ciudad. Por favor, revisa el nombre.');
-        }
-        const data = await response.json();
-        setWeatherData(data);
-      } catch (err) {
-        setError(err.message);
-        setWeatherData(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWeather();
-  }, [city, API_KEY]);
-
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
-
-  return (
-    <div className={`app-container ${theme}-theme`}>
-      <div className="app-content">
-        <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} />
-        <h1 className="app-title">Panel de Control del Clima</h1>
-        <SearchBar setCity={setCity} />
-        <WeatherDisplay data={weatherData} loading={loading} error={error} />
-      </div>
-    </div>
-  );
-}
+const App = () => (
+  <Routes>
+    <Route path="/" element={<AppLayout />}>
+      <Route index element={<Home />} />
+      <Route path="forecast/:city" element={<ForecastDetails />} />
+      <Route
+        path="about"
+        element={(
+          <Suspense fallback={<div className="message">Cargando sección...</div>}>
+            <About />
+          </Suspense>
+        )}
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Route>
+  </Routes>
+);
 
 export default App;

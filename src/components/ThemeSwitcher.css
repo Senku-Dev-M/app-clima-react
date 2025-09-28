@@ -1,8 +1,7 @@
 .theme-switcher {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .theme-button {
@@ -14,6 +13,7 @@
   transition: background-color 0.2s ease;
   background-color: var(--bg-card-light);
   backdrop-filter: blur(8px);
+  font-size: 1.25rem;
 }
 
 .light-theme .theme-button {

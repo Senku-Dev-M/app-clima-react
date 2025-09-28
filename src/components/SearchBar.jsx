@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './SearchBar.css';
 
-const SearchBar = ({ setCity }) => {
+const SearchBar = ({ onSearch }) => {
   const [inputCity, setInputCity] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputCity.trim() !== '') {
-      setCity(inputCity);
+    const trimmedCity = inputCity.trim();
+    if (trimmedCity !== '') {
+      onSearch?.(trimmedCity);
     }
     setInputCity('');
   };
@@ -20,6 +21,7 @@ const SearchBar = ({ setCity }) => {
         onChange={(e) => setInputCity(e.target.value)}
         placeholder="Ej: Ciudad de México, Madrid, Buenos Aires"
         className="search-input"
+        aria-label="Buscar ciudad"
       />
       <button
         type="submit"
