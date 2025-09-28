@@ -9,7 +9,13 @@ const AppLayout = () => {
     <div className={`app-container ${theme}-theme`}>
       <div className="app-wrapper">
         <header className="app-header">
-          <nav className="navigation">
+          <div className="app-brand">
+            <NavLink to="/" className="brand-link" aria-label="Ir al inicio">
+              <span className="brand-accent" aria-hidden="true" />
+              Clima Pro
+            </NavLink>
+          </div>
+          <nav className="app-nav" aria-label="Secciones principales">
             <NavLink to="/" end className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
               Inicio
             </NavLink>

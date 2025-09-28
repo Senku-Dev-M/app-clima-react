@@ -2,6 +2,7 @@ import { useState } from 'react';
 import SearchBar from '../components/SearchBar.jsx';
 import WeatherDisplay from '../components/WeatherDisplay.jsx';
 import { useFetch } from '../hooks/useFetch.js';
+import './Home.css';
 
 const Home = () => {
   const [selectedCity, setSelectedCity] = useState('');
@@ -19,10 +20,16 @@ const Home = () => {
 
   return (
     <div className="page home-page">
-      <h1 className="app-title">Panel de Control del Clima</h1>
-      <p className="page-subtitle">Busca el clima actual de cualquier ciudad y consulta detalles adicionales.</p>
-      <SearchBar onSearch={handleSearch} />
-      <WeatherDisplay data={data} loading={isLoading} error={error} showDetailsLink />
+      <header className="page-header">
+        <h1 className="page-title">Panel de Control del Clima</h1>
+        <p className="page-subtitle">Busca el clima actual de cualquier ciudad y consulta detalles adicionales.</p>
+      </header>
+      <div className="page-grid home-grid">
+        <section className="page-panel home-search" aria-label="Buscador de ciudades">
+          <SearchBar onSearch={handleSearch} />
+        </section>
+        <WeatherDisplay data={data} loading={isLoading} error={error} showDetailsLink />
+      </div>
     </div>
   );
 };

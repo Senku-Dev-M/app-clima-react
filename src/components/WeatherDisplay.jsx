@@ -4,36 +4,53 @@ import './WeatherDisplay.css';
 
 const WeatherDisplay = ({ data, loading, error, showDetailsLink = false }) => {
   if (loading) {
-    return <div className="message">Cargando datos del clima...</div>;
+    return (
+      <section className="page-panel weather-feedback">
+        <p className="message">Cargando datos del clima...</p>
+      </section>
+    );
   }
 
   if (error) {
-    return <div className="message error">{error}</div>;
+    return (
+      <section className="page-panel weather-feedback">
+        <p className="message error">{error}</p>
+      </section>
+    );
   }
 
   if (!data) {
-    return <div className="message">Usa la barra de búsqueda para ver el clima de una ciudad.</div>;
+    return (
+      <section className="page-panel weather-feedback">
+        <p className="message">Usa la barra de búsqueda para ver el clima de una ciudad.</p>
+      </section>
+    );
   }
 
   const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
   const forecastLink = `/forecast/${encodeURIComponent(data.name)}`;
+  const formattedDate = new Date().toLocaleDateString('es-ES', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   return (
-    <div className="weather-display-card">
-      <h2 className="city-name">{data.name}</h2>
-      <p className="date">
-        {new Date().toLocaleDateString('es-ES', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })}
-      </p>
-      <div className="main-weather">
-        <img src={iconUrl} alt={data.weather[0].description} className="weather-icon" />
-        <p className="temperature">{Math.round(data.main.temp)}°C</p>
+    <article className="weather-display-card">
+      <div className="weather-summary">
+        <div className="weather-summary__header">
+          <h2 className="city-name">{data.name}</h2>
+          <p className="date">{formattedDate}</p>
+        </div>
+        <div className="weather-summary__main">
+          <img src={iconUrl} alt={data.weather[0].description} className="weather-icon" />
+          <div className="weather-summary__temperature">
+            <p className="temperature">{Math.round(data.main.temp)}°C</p>
+            <p className="description">{data.weather[0].description}</p>
+          </div>
+        </div>
       </div>
-      <p className="description">{data.weather[0].description}</p>
       <div className="weather-details">
         <div className="detail-item">
           <p className="detail-label">Sensación térmica</p>
@@ -59,7 +76,7 @@ const WeatherDisplay = ({ data, loading, error, showDetailsLink = false }) => {
           </Link>
         </div>
       )}
-    </div>
+    </article>
   );
 };
 

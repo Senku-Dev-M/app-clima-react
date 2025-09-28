@@ -5,31 +5,38 @@
 }
 
 .theme-button {
-  padding: 0.75rem;
+  padding: 0.65rem;
   border-radius: 9999px;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease;
-  background-color: var(--bg-card-light);
-  backdrop-filter: blur(8px);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  background-color: transparent;
+  backdrop-filter: blur(10px);
   font-size: 1.25rem;
 }
 
 .light-theme .theme-button {
-  background-color: var(--bg-card-light);
+  background: rgba(255, 255, 255, 0.82);
+  border-color: var(--border-color-light);
   color: var(--text-color-light);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
 }
 
 .dark-theme .theme-button {
-  background-color: var(--bg-card-dark);
+  background: rgba(30, 41, 59, 0.7);
+  border-color: var(--border-color-dark);
   color: var(--text-color-dark);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
 }
 
 .theme-button:hover {
-  background-color: var(--hover-color-light);
+  transform: translateY(-1px);
 }
 
 .dark-theme .theme-button:hover {
   background-color: var(--hover-color-dark);
+}
+
+.light-theme .theme-button:hover {
+  background-color: var(--hover-color-light);
 }
