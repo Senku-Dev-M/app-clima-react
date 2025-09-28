@@ -1,75 +1,55 @@
 # Panel de Control del Clima en React
 
-## Descripción del Proyecto
+## Descripción general
 
-La aplicación "Panel de Control del Clima" permite a los usuarios buscar el clima actual de cualquier ciudad del mundo. La interfaz es dinámica e incluye una opción para alternar entre un modo claro y un modo oscuro.
+Esta versión del "Panel de Control del Clima" evoluciona la práctica de la Semana 3 hacia una aplicación de página única (SPA). La interfaz permite buscar ciudades, consultar información meteorológica detallada y alternar entre temas claro y oscuro desde cualquier sección del sitio.
 
-### Características
+## Características principales
 
-* **Búsqueda de Clima**: Obtiene datos del clima en tiempo real de una API pública.
+- **Búsqueda interactiva**: Consulta el clima actual de cualquier ciudad utilizando la API pública de OpenWeatherMap.
+- **Rutas dinámicas**: Navega entre Inicio, Detalles del pronóstico (`/forecast/:city`) y Acerca de, con un layout y barra de navegación compartidos.
+- **Tema global**: El modo claro/oscuro se gestiona con un `ThemeContext`, disponible en todas las rutas.
+- **Hook personalizado**: La obtención de datos se realiza mediante el hook `useFetch`, que retorna `{ data, isLoading, error }` para simplificar el manejo de estados de red.
+- **Lazy loading**: La página "Acerca de" se carga bajo demanda para optimizar el rendimiento.
 
-* **Cambio de Tema**: Alterna entre una interfaz de modo claro y oscuro.
+## Estructura de enrutamiento
 
-* **Diseño Responsivo**: La interfaz se adapta a diferentes tamaños de pantalla, desde dispositivos móviles hasta escritorios.
-
-## Metodología de Desarrollo
-
-Este proyecto se desarrolló siguiendo las mejores prácticas de React, enfocándose en la modularidad y la gestión eficiente del estado.
-
-### 1. Estructura de Componentes
-
-La aplicación se dividió en componentes lógicos y reutilizables para mantener el código limpio y ordenado.
-
-* **`App`**: El componente principal que maneja la lógica de la aplicación y el estado global.
-
-* **`SearchBar`**: Un componente controlado para la entrada de texto y el botón de búsqueda.
-
-* **`WeatherDisplay`**: Un componente para mostrar la información del clima recibida de la API.
-
-* **`ThemeSwitcher`**: Un componente simple para la funcionalidad de cambiar el tema.
-
-### 2. Gestión de Estado y Datos
-
-* Se usó el hook **`useState`** para manejar el estado de la aplicación, como la ciudad que el usuario busca, los datos del clima y el tema.
-
-* Los datos fluyen de manera unidireccional, pasando las **`props`** desde el componente padre (`App`) a los componentes hijos para que estos puedan mostrar la información y actualizar el estado cuando sea necesario.
-
-### 3. Integración con la API
-
-* Se utilizó el hook **`useEffect`** para realizar la llamada a la API de OpenWeatherMap. Esto asegura que la solicitud de datos se ejecute como un efecto secundario cada vez que el valor de la ciudad cambia.
-
-* La **API Key** se almacenó en un archivo `.env` para mantener las credenciales seguras.
-
-## Cómo Ejecutar el Proyecto
-
-Sigue estos pasos para poner en marcha la aplicación en tu entorno local.
-
-### Requisitos Previos
-
-* Node.js instalado en tu máquina.
-
-### Pasos para la Instalación
-
-1. **Clona el repositorio** o crea un nuevo proyecto con Vite y navega a la carpeta del proyecto.
-
-2. **Instala las dependencias**:
-
-```shell
-npm install
+```text
+/
+├── (layout) AppLayout
+│   ├── /                 → Home: búsqueda y vista rápida del clima
+│   ├── /forecast/:city   → ForecastDetails: detalles extendidos para la ciudad seleccionada
+│   └── /about            → About (carga diferida)
+└── *                     → Redirección al inicio
 ```
 
-3. **Configura la API Key**: En la raíz de tu proyecto, crea un archivo llamado `.env` y añade tu clave de API de OpenWeatherMap.
+La barra de navegación y el selector de tema forman parte del `AppLayout`, que utiliza `<Outlet />` para renderizar las rutas anidadas.
 
-```shell
-VITE_API_KEY=tu_clave_de_api
-```
+## Gestión de estado y hooks
 
-4. **Ejecuta la aplicación**:
+- **ThemeContext**: expone `theme` y `toggleTheme`, permitiendo alternar el modo claro/oscuro desde cualquier página.
+- **useFetch(url)**: ejecuta la solicitud HTTP indicada, controla abortos de petición y maneja errores comunes (incluyendo mensajes personalizados para respuestas 404).
 
-```shell
-npm run dev
-```
+## Configuración y ejecución
 
-### Autor
+1. **Instalar dependencias**
+   ```bash
+   npm install
+   ```
 
-Rodrigo Machaca - Rodrigo.Machaca@jala.university
+2. **Configurar la API Key**
+   Crear un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+   ```bash
+   VITE_API_KEY=tu_clave_de_api
+   ```
+
+3. **Iniciar el servidor de desarrollo**
+   ```bash
+   npm run dev
+   ```
+
+## Recursos útiles
+
+- [Documentación de React Router](https://reactrouter.com)
+- [API de OpenWeatherMap](https://openweathermap.org/current)
+- [Documentación de Vite](https://vitejs.dev)
