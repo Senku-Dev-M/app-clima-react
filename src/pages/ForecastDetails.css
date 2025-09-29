@@ -1,0 +1,32 @@
+.forecast-page {
+  gap: clamp(1.5rem, 2vw, 2.25rem);
+}
+
+.forecast-search .search-bar {
+  margin: 0;
+}
+
+.forecast-layout {
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+
+.forecast-extended {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.forecast-extended .extended-details {
+  height: 100%;
+}
+
+.forecast-extended .extended-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+@media (min-width: 1024px) {
+  .forecast-layout {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+}

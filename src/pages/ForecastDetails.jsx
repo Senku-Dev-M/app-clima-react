@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import SearchBar from '../components/SearchBar.jsx';
 import WeatherDisplay from '../components/WeatherDisplay.jsx';
 import { useFetch } from '../hooks/useFetch.js';
+import './ForecastDetails.css';
 
 const formatTime = (timestamp) =>
   new Date(timestamp * 1000).toLocaleTimeString('es-ES', {
@@ -70,23 +71,31 @@ const ForecastDetails = () => {
 
   return (
     <div className="page forecast-page">
-      <h1 className="page-title">Pronóstico detallado</h1>
-      <p className="page-subtitle">Explora información adicional sobre las condiciones actuales en {decodedCity}.</p>
-      <SearchBar onSearch={handleSearch} />
-      <WeatherDisplay data={data} loading={isLoading} error={error} />
-      {data && (
-        <section className="extended-details" aria-label="Información adicional del clima">
-          <h2 className="section-title">Información adicional</h2>
-          <div className="extended-grid">
-            {extendedDetails.map(detail => (
-              <div className="extended-item" key={detail.label}>
-                <span className="extended-label">{detail.label}</span>
-                <span className="extended-value">{detail.value}</span>
+      <header className="page-header">
+        <h1 className="page-title">Pronóstico detallado</h1>
+        <p className="page-subtitle">Explora información adicional sobre las condiciones actuales en {decodedCity}.</p>
+      </header>
+      <section className="page-panel forecast-search" aria-label="Buscar otra ciudad">
+        <SearchBar onSearch={handleSearch} />
+      </section>
+      <div className="page-grid forecast-layout">
+        <WeatherDisplay data={data} loading={isLoading} error={error} />
+        {data && (
+          <section className="page-panel forecast-extended" aria-label="Información adicional del clima">
+            <div className="extended-details">
+              <h2 className="section-title">Información adicional</h2>
+              <div className="extended-grid">
+                {extendedDetails.map(detail => (
+                  <div className="extended-item" key={detail.label}>
+                    <span className="extended-label">{detail.label}</span>
+                    <span className="extended-value">{detail.value}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
-      )}
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 };

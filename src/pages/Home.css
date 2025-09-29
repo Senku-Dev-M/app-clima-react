@@ -1,0 +1,13 @@
+.home-page {
+  gap: clamp(1.5rem, 2.25vw, 2.25rem);
+}
+
+.home-search {
+  display: grid;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  align-items: center;
+}
+
+.home-search .search-bar {
+  margin: 0;
+}
